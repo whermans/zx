@@ -4,7 +4,7 @@ org	32768
 
 line:	defb	'Hello world',13,'$'
 
-main:
+start:
 	ld	a,2		; load screen channel
 	call	$1601		; select screen channel
 	ld	hl,line		; load data
