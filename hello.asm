@@ -1,25 +1,23 @@
-; Hello World
+; Hello World for ZX Spectrum
 
-org 32768
+org	32768
 
-start:
-	ld	a,2
-	call	$1601
+line:	defb	'Hello world',13,'$'
 
-	ld	hl,line
-	call	printline
+main:
+	ld	a,2		; load screen channel
+	call	$1601		; select screen channel
+	ld	hl,line		; load data
+	call	println		; print data
 	ret
 
-printline:
-	ld	a,(hl)
-	cp	'$'
-	jp	z,printend
-	rst	16
-	inc	hl
-	jp	printline
+println:
+	ld	a,(hl)		; fetch character
+	cp	'$'		; check EOL
+	jp	z,printend	; if EOL, end
+	rst	16		; print current character
+	inc	hl		; fetch next character
+	jp	println		; loop
 
 printend:
 	ret
-
-line:
-	defb	'Hello world',13,'$'
